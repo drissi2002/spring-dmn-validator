@@ -1,0 +1,41 @@
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  application:
+    name: dmn
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dmn
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+camunda:
+  bpm:
+    dmn:
+      enabled: true
+    enabled: true # Specifies whether to enable Camunda BPM or not
+    admin-user:
+      id: camunda # Specifies the user ID of the Camunda BPM admin user
+      password: camunda # Specifies the password of the Camunda BPM admin user
+    database:
+      schema-update: true # Specifies whether to update the Camunda BPM schema automatically or not
+    filter:
+      create: All # Specifies which filters to create for Camunda BPM
+    authorization:
+      enabled: true # Specifies whether to enable Camunda BPM authorization or not
+    history-level: full # Specifies the level of detail for the Camunda BPM history
+    auto-deployment-enabled: false
+    default-number-of-retries: 3 # Specifies the default number of retries for failed Camunda BPM jobs
+    job-execution:
+      enabled: true # Specifies whether to enable Camunda BPM job execution or not
+
+logging:
+  level:
+    org:
+      camunda:
+        bpm:
+          engine: DEBUG

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:dmndi_1="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="http://www.omg.org/spec/DMN/20151101/dmndi.xsd" id="depositorValidation" name="Depositor Validation" namespace="http://example.com/depositor" exporter="Camunda Modeler" exporterVersion="5.27.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+    <decision id="DepositorValidationCommon" name="Common Validation">
+        <decisionTable id="DecisionTableCommon" hitPolicy="COLLECT">
+            <input id="country" label="Country">
+                <inputExpression id="CountryInputExpression" typeRef="string">
+                    <text>country</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_0vkny3a" label="Currency">
+                <inputExpression id="LiteralExpression_11hg8cv" typeRef="string">
+                    <text>curreny</text>
+                </inputExpression>
+            </input>
+            <output id="validationResultCountry" name="Validation Result" typeRef="string" />
+            <output id="errorLevelCountry" name="Error Level" typeRef="string" />
+            <output id="exceptionMessageCountry" name="Exception Message" typeRef="string" />
+            <rule id="DecisionRule_InvalidCountry">
+                <inputEntry id="UnaryTests_InvalidCountry">
+                    <text>not (country in validCountries)</text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_1clacit">
+                    <text></text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_InvalidCountryError">
+                    <text>"Invalid Country"</text>
+                </outputEntry>
+                <outputEntry id="ErrorLevel_InvalidCountry">
+                    <text>"Error"</text>
+                </outputEntry>
+                <outputEntry id="ExceptionMessage_InvalidCountry">
+                    <text>"InvalidCountryException"</text>
+                </outputEntry>
+            </rule>
+            <rule id="DecisionRule_1maa8xf">
+                <inputEntry id="UnaryTests_10wrkdh">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0o1ukc7">
+                    <text>not (currency in validCurrencies)</text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_1oszush">
+                    <text>"Invalid Currency"</text>
+                </outputEntry>
+                <outputEntry id="LiteralExpression_1wlyx90">
+                    <text>"Warning"</text>
+                </outputEntry>
+                <outputEntry id="LiteralExpression_0g67sd4">
+                    <text>"InvalidCurrencyException"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision id="DepositorValidationPP" name="Depositor Validation PP">
+        <decisionTable id="DecisionTablePP" hitPolicy="COLLECT">
+            <input id="cinNum" label="CIN Number">
+                <inputExpression id="CINInputExpression" typeRef="string">
+                    <text>cinNum</text>
+                </inputExpression>
+            </input>
+            <input id="passportNum" label="Passport Number">
+                <inputExpression id="PassportInputExpression" typeRef="string">
+                    <text>passportNum</text>
+                </inputExpression>
+            </input>
+            <output id="validationResultPP" name="Validation Result" typeRef="string" />
+            <output id="errorLevelPP" name="Error Level" typeRef="string" />
+            <output id="exceptionMessagePP" name="Exception Message" typeRef="string" />
+            <rule id="DecisionRule_CINValidation">
+                <inputEntry id="UnaryTests_CINLength">
+                    <text>string length(cinNum) != 8 or not(isNumeric(cinNum))</text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_Empty">
+                    <text></text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_CINError">
+                    <text>"CIN must be 8 digits"</text>
+                </outputEntry>
+                <outputEntry id="ErrorLevel_CINError">
+                    <text>"Error"</text>
+                </outputEntry>
+                <outputEntry id="ExceptionMessage_CINError">
+                    <text>"CINValidationException"</text>
+                </outputEntry>
+            </rule>
+            <rule id="DecisionRule_PassportValidation">
+                <inputEntry id="UnaryTests_Empty2">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_PassportLength">
+                    <text>not(string length(passportNum) in [9..15])</text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_PassportError">
+                    <text>"Passport must be between 9 and 15 characters"</text>
+                </outputEntry>
+                <outputEntry id="ErrorLevel_PassportError">
+                    <text>"Error"</text>
+                </outputEntry>
+                <outputEntry id="ExceptionMessage_PassportError">
+                    <text>"PassportValidationException"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision id="DepositorValidationPM" name="Depositor Validation PM">
+        <decisionTable id="DecisionTablePM" hitPolicy="COLLECT">
+            <input id="legalForm" label="Legal Form">
+                <inputExpression id="LegalFormInputExpression" typeRef="string">
+                    <text>legalForm</text>
+                </inputExpression>
+            </input>
+            <output id="validationResultPM" name="Validation Result" typeRef="string" />
+            <output id="errorLevelPM" name="Error Level" typeRef="string" />
+            <output id="exceptionMessagePM" name="Exception Message" typeRef="string" />
+            <rule id="RulePMInvalidLegalForm">
+                <inputEntry id="PMInvalidLegalFormEntry">
+                    <text>not(legalForm in ("SA", "SARL", "Ltd"))</text>
+                </inputEntry>
+                <outputEntry id="PMResultInvalidLegalForm">
+                    <text>"Invalid Legal Form"</text>
+                </outputEntry>
+                <outputEntry id="ErrorLevel_InvalidLegalForm">
+                    <text>"Error"</text>
+                </outputEntry>
+                <outputEntry id="ExceptionMessage_InvalidLegalForm">
+                    <text>"InvalidLegalFormException"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <dmndi_1:DMNDI>
+        <dmndi_1:DMNDiagram id="DMNDiagram_0vnh8y3">
+            <dmndi_1:DMNShape id="DMNShape_0g9f2ppCountry" dmnElementRef="DepositorValidationCommon">
+                <dc:Bounds height="80" width="180" x="160" y="40" />
+            </dmndi_1:DMNShape>
+            <dmndi_1:DMNShape id="DMNShape_0g9f2ppPP" dmnElementRef="DepositorValidationPP">
+                <dc:Bounds height="80" width="180" x="160" y="150" />
+            </dmndi_1:DMNShape>
+            <dmndi_1:DMNShape id="DMNShape_0g9f2ppPM" dmnElementRef="DepositorValidationPM">
+                <dc:Bounds height="80" width="180" x="160" y="260" />
+            </dmndi_1:DMNShape>
+        </dmndi_1:DMNDiagram>
+    </dmndi_1:DMNDI>
+</definitions>
